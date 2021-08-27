@@ -7,17 +7,23 @@ import { LoginModule } from './login/login.module';
 import { ProductsModule } from './products/products.module';
 import { UserModule } from './user/user.module';
 import { configService } from './config/config.service';
-
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    ConfigModule.forRoot({isGlobal: true}),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      autoLoadEntities: true,
+      synchronize: true
+    }),
     CartModule,
     LoginModule,
     ProductsModule,
     UserModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}
