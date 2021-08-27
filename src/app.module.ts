@@ -6,7 +6,6 @@ import { CartModule } from './cart/cart.module';
 import { LoginModule } from './login/login.module';
 import { ProductsModule } from './products/products.module';
 import { UserModule } from './user/user.module';
-import { configService } from './config/config.service';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
