@@ -12,7 +12,14 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>
   ) { }
 
-  async addNewUser(userData: UserDto): Promise<User> {
+  async addNewUser(userData: UserEntity): Promise<UserEntity> {
+    // var userDTO = new UserDto(userData);
+    // userDTO.email = userData.email;
+    // userDTO.address = userData.address;
+    // userDTO.name = userData.name;
+    // userDTO.password = userData.password;
+    // userDTO.phone = userData.password;
+    // userDTO.username = userData.username;
     return await this.userRepository.save(userData);
   }
 }
