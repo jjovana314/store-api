@@ -1,9 +1,9 @@
 import { Geolocation } from "./geolocation.interface";
 
 export interface Address {
-  city: String;
-  street: String;
-  number: Number;
-  zipcode: String;
+  city: string;
+  street: string;
+  number: number;
+  zipcode: string;
   geolocation: Geolocation;
 }

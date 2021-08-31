@@ -1,4 +1,4 @@
 export interface Name {
-  firstname: String;
-  lastname: String;
+  firstname: string;
+  lastname: string;
 }

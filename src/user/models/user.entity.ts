@@ -14,13 +14,13 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 300})
+  @Column({ type: 'varchar', length: 300 })
   email: string;
 
-  @Column({ type: 'varchar', length: 300})
+  @Column({ type: 'varchar', length: 300 })
   username: string;
 
-  @Column({ type: 'varchar', length: 300})
+  @Column({ type: 'varchar', length: 300 })
   password: string;
 
   @OneToOne(() => NameEntity)
@@ -31,6 +31,6 @@ export class UserEntity {
   @JoinColumn()
   address: AddressEntity;
 
-  @Column({ type: 'varchar', length: 50})
+  @Column({ type: 'varchar', length: 50 })
   phone: string;
 }

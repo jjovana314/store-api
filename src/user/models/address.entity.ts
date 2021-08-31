@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { GeolocationEntity } from "./geolocation.entity";
 
-
+@Entity({ name: 'address' })
 export class AddressEntity {
   @Column({ type: 'varchar', length: '50'})
   city: string;

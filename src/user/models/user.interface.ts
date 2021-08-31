@@ -2,11 +2,11 @@ import { Address } from "cluster";
 import { Name } from "./name.interface";
 
 export interface User {
-  id: Number;
-  email: String;
-  username: String;
-  password: String;
+  id: number;
+  email: string;
+  username: string;
+  password: string;
   name: Name;
   address: Address;
-  phone: String;
+  phone: string;
 }
