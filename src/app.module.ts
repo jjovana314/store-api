@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CartModule } from './cart/cart.module';
 import { LoginModule } from './login/login.module';
 import { ProductsModule } from './products/products.module';
-import { UserModule } from './user/user.module';
+import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -20,7 +20,7 @@ import { ConfigModule } from '@nestjs/config';
     CartModule,
     LoginModule,
     ProductsModule,
-    UserModule
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService]
