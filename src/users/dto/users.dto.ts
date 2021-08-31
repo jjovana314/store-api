@@ -2,10 +2,10 @@ import { ValidateNested } from 'class-validator'
 import { Type } from 'class-transformer'
 import { AddressDto } from './address.dto';
 import { NameDto } from './name.dto';
-import { User } from '../models/user.interface';
+import { Users } from '../models/users.interface';
 
 
-export class UserDto {
+export class UsersDto {
   email: string;
   username: string;
   password: string;
@@ -20,7 +20,7 @@ export class UserDto {
 
   phone: string;
 
-  constructor(user: UserDto) {
+  constructor(user: UsersDto) {
     this.email = user.email.toString();
     this.username = user.username.toString();
     this.password = user.password.toString();

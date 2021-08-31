@@ -1,7 +1,7 @@
 import { Address } from "cluster";
 import { Name } from "./name.interface";
 
-export interface User {
+export interface Users {
   id: number;
   email: string;
   username: string;

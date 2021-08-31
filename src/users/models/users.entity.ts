@@ -9,8 +9,8 @@ import { AddressEntity } from "./address.entity";
 import { NameEntity } from "./name.entity";
 
 
-@Entity({ name: 'user' })
-export class UserEntity {
+@Entity({ name: 'users' })
+export class UsersEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -23,13 +23,13 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 300 })
   password: string;
 
-  @OneToOne(() => NameEntity)
-  @JoinColumn()
-  name: NameEntity;
+  // @OneToOne(() => NameEntity)
+  // @JoinColumn()
+  // name: NameEntity;
 
-  @OneToOne(() => AddressEntity)
-  @JoinColumn()
-  address: AddressEntity;
+  // @OneToOne(() => AddressEntity)
+  // @JoinColumn()
+  // address: AddressEntity;
 
   @Column({ type: 'varchar', length: 50 })
   phone: string;

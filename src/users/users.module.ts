@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
-import { UserEntity } from './models/user.entity';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+import { UsersEntity } from './models/users.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NameEntity } from './models/name.entity';
 import { AddressEntity } from './models/address.entity';
@@ -10,14 +10,14 @@ import { GeolocationEntity } from './models/geolocation.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      UserEntity,
+      UsersEntity,
       NameEntity,
       AddressEntity,
       GeolocationEntity
     ])
   ],
-  controllers: [UserController],
-  providers: [UserService],
-  exports: [UserService]
+  controllers: [UsersController],
+  providers: [UsersService],
+  exports: [UsersService]
 })
-export class UserModule {}
+export class UsersModule {}
