@@ -1,8 +1,10 @@
-import { Column, Entity } from 'typeorm'
-import { AddressEntity } from './address.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({ name: 'geolocation' })
-export class GeolocationEntity extends AddressEntity{
+export class GeolocationEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ type: 'decimal' })
   lat: number;
 

@@ -3,7 +3,8 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  ManyToOne
 } from "typeorm";
 import { AddressEntity } from "./address.entity";
 import { NameEntity } from "./name.entity";
@@ -15,13 +16,19 @@ export class UsersEntity {
   id: number;
 
   @Column({ type: 'varchar', length: 300 })
-  email: string;
+  email?: string;
 
   @Column({ type: 'varchar', length: 300 })
-  username: string;
+  username?: string;
 
   @Column({ type: 'varchar', length: 300 })
-  password: string;
+  password?: string;
+
+  @ManyToOne(type => NameEntity)
+  name?: NameEntity;
+
+  @OneToOne(type => AddressEntity)
+  address?: AddressEntity;
 
   // @OneToOne(() => NameEntity)
   // @JoinColumn()
@@ -32,5 +39,5 @@ export class UsersEntity {
   // address: AddressEntity;
 
   @Column({ type: 'varchar', length: 50 })
-  phone: string;
+  phone?: string;
 }

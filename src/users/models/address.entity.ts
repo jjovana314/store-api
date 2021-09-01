@@ -1,20 +1,25 @@
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { GeolocationEntity } from "./geolocation.entity";
-import { UsersEntity } from "./users.entity";
 
 @Entity({ name: 'address' })
-export class AddressEntity extends UsersEntity{
+export class AddressEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ type: 'varchar', length: '50'})
-  city: string;
+  city?: string;
 
   @Column({ type: 'varchar', length: 50})
-  street: string;
+  street?: string;
 
   @Column({ type: 'int' })
-  number: number;
+  number?: number;
 
   @Column({ type: 'varchar', length: 15})
-  zipcode: string;
+  zipcode?: string;
+
+  @OneToOne(type => GeolocationEntity)
+  geolocation?: GeolocationEntity;
 
   // @OneToOne(() => GeolocationEntity)
   // @JoinColumn()
