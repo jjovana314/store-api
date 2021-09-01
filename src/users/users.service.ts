@@ -1,55 +1,47 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { 
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException 
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create.user.dto';
-import { UsersDto } from './dto/users.dto';
-import { AddressEntity } from './models/address.entity';
-import { GeolocationEntity } from './models/geolocation.entity';
-import { NameEntity } from './models/name.entity';
-import { UsersEntity } from './models/users.entity';
-import { Users } from './models/users.interface';
+import { Users } from './models/interfaces/users.interface';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { UsersDto } from './models/dto/users.dto';
+
 
 const bcrypt = require('bcrypt');
-const salt = 12
+const salt = 12;
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(UsersEntity)
-    private readonly usersRepository: Repository<UsersEntity>
+    @InjectModel('Users') private readonly usersModel: Model<Users>
   ) { }
 
-  async addNewUser(usersData: CreateUserDto): Promise<UsersDto> {
-    var passwordHash = await bcrypt.hash(usersData.password, salt);
+  async createUser(usersData: UsersDto): Promise<Users> {
+    let hashPassword = bcrypt.hash(usersData.password, salt);
     usersData = {
       ...usersData,
-      password: passwordHash
+      password: hashPassword
     };
-
-    const user: UsersEntity = await this.usersRepository.create({
-      username: usersData.username,
-      password: usersData.password,
-      email: usersData.email,
-      address: usersData.address,
-      name: usersData.name,
-      phone: usersData.phone
-    });
-    return await this.usersRepository.save(user);
-  }
-
-  async getAllUsers(): Promise<UsersDto[]> {
-    return await this.usersRepository.find();
-  }
-
-  async getUser(id: string): Promise<UsersDto> {
-    const user = await this.usersRepository.findOne({
-      where: { id }
-    });
-    if (!user) {
-      throw NotFoundException(
-        `User with id ${id} does not exist`
-      );
+    let userUsername = this.usersModel.findOne(
+      { username: usersData.username }
+    );
+    let userEmail = this.usersModel.findOne(
+      { email: usersData.email }
+    );
+    if (userUsername || userEmail) {
+      throw new HttpException(
+        `User with username ${usersData.username} already exist.`,
+        HttpStatus.BAD_REQUEST
+      )
     }
-    return await user;
+    const newUser = new this.usersModel(usersData)
+    return await newUser.save()
+
   }
 }
+
+  
