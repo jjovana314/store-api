@@ -10,22 +10,13 @@ export class UsersDto {
   username: string;
   password: string;
   
-  @ValidateNested()
-  @Type(() => NameDto)
+  // @ValidateNested()
+  // @Type(() => NameDto)
   name: NameDto;
 
-  @ValidateNested()
-  @Type(() => AddressDto)
+  // @ValidateNested()
+  // @Type(() => AddressDto)
   address: AddressDto;
 
   phone: string;
-
-  constructor(user: UsersDto) {
-    this.email = user.email.toString();
-    this.username = user.username.toString();
-    this.password = user.password.toString();
-    this.name = new NameDto(user.name);
-    this.address = new AddressDto(user.address);
-    this.phone = user.phone.toString();
-  }
 }
