@@ -48,7 +48,7 @@ API listens on port 3000
 
 - [NestJS](https://nestjs.com/)
 - [Docker](https://www.docker.com/)
-- [node-postgres](https://node-postgres.com/)
+- [MongoDB](https://www.mongodb.com/)
 
 ## Usage<a name="usage"></a>
 
