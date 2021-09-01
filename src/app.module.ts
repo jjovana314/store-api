@@ -1,26 +1,26 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { CartModule } from './cart/cart.module';
 import { LoginModule } from './login/login.module';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
-import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: process.env.DATABASE_URL,
-      autoLoadEntities: true,
-      synchronize: true
-    }),
     CartModule,
     LoginModule,
     ProductsModule,
-    UsersModule
+    UsersModule,
+    MongooseModule.forRoot(
+      'mongodb://172.17.0.1:27017/db',
+      {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+      }
+    )
   ],
   controllers: [AppController],
   providers: [AppService]
