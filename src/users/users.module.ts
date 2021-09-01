@@ -1,19 +1,20 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { UsersEntity } from './models/users.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { NameEntity } from './models/name.entity';
-import { AddressEntity } from './models/address.entity';
-import { GeolocationEntity } from './models/geolocation.entity';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UsersSchema } from './models/schemas/users.schema';
+import { AddressSchema } from './models/schemas/address.schema';
+import { NameSchema } from './models/schemas/name.schema';
+import { GeolocationSchema } from './models/schemas/geolocation.schema';
+
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      UsersEntity,
-      NameEntity,
-      AddressEntity,
-      GeolocationEntity
+    MongooseModule.forFeature([
+      { name: 'Users', schema: 'UsersSchema' },
+      { name: 'Address', schema: 'AddressSchema' },
+      { name: 'Name', schema: 'NameSchema' },
+      { name: 'Geolocation', schema: 'GeolocationSchema'}
     ])
   ],
   controllers: [UsersController],
