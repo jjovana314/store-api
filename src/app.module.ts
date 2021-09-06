@@ -6,6 +6,7 @@ import { LoginModule } from './login/login.module';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import config from './config/key';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ProductsModule,
     UsersModule,
     MongooseModule.forRoot(
-      'mongodb://172.17.0.1:27017/db',
+      config.mongoURI,
       {
         useNewUrlParser: true,
         useCreateIndex: true,
