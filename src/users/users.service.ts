@@ -75,9 +75,20 @@ export class UsersService {
       throw new HttpException(
         `id: ${id} is not valid`,
         HttpStatus.BAD_REQUEST
-      )
+      );
     }
   }
-}
 
-  
+  async getUsersLimit(limitString: string): Promise<Users[]> {
+    var limitNumber = Number(limitString);
+    const allUsers = await this.usersModel.find();
+    if (allUsers.length < limitNumber || limitNumber <= 0) {
+      throw new HttpException(
+        `Limit error occurred`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+    return await this.usersModel.find().limit(limitNumber);
+  }
+
+}

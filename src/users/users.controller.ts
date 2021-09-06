@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Users } from './models/interfaces/users.interface';
 import { UsersDto } from './models/dto/users.dto';
@@ -17,6 +17,11 @@ export class UsersController {
   }
 
   @Get()
+  async getUsersLimit(@Query() limitObject) {
+    return await this.usersService.getUsersLimit(limitObject.limit);
+  }
+
+  @Get()
   async getAllUsers(): Promise<Users[]> {
     return await this.usersService.getAllUsers();
   }
@@ -25,6 +30,5 @@ export class UsersController {
   async getUser(@Param('_id') id: string): Promise<Users> {
     return await this.usersService.getUser(id);
   }
-
 }
 
