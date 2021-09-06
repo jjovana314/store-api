@@ -11,10 +11,10 @@ import { GeolocationSchema } from './models/schemas/geolocation.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: 'Users', schema: 'UsersSchema' },
-      { name: 'Address', schema: 'AddressSchema' },
-      { name: 'Name', schema: 'NameSchema' },
-      { name: 'Geolocation', schema: 'GeolocationSchema'}
+      { name: 'Users', schema: UsersSchema },
+      { name: 'Address', schema: AddressSchema },
+      { name: 'Name', schema: NameSchema },
+      { name: 'Geolocation', schema: GeolocationSchema}
     ])
   ],
   controllers: [UsersController],
