@@ -22,24 +22,24 @@ To successfully run and test this on your local machine, you need to install:
 - [Node.js](https://nodejs.org/en/)
 - [Postman](https://www.postman.com/)
 
+To use MongoDB Atlas visit [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create your acount and your own cluster.
+You should add link of your cluster in *./src/config/key.ts*.
 
 ### Installing<a name="installing"></a>
 To get project on your local machine run command:
 
 ```bash
-git pull origin master
+git clone https://github.com/jjovana314/store-api
 ```
 
-To build docker container run command:
+And run:
 
 ```bash
-docker-compose build
+npm install
 ```
 
-To run docker container run command:
-
 ```bash
-docker-compose up
+npm run start:dev
 ```
 
 API listens on port 3000
@@ -47,8 +47,8 @@ API listens on port 3000
 ## Tools used in development<a name="tools"></a>
 
 - [NestJS](https://nestjs.com/)
-- [Docker](https://www.docker.com/)
 - [MongoDB](https://www.mongodb.com/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 ## Usage<a name="usage"></a>
 
