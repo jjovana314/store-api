@@ -1,6 +1,6 @@
 import { Type } from "class-transformer";
 import { ValidateNested } from "class-validator";
-import { UpdateGeolocationDto } from "./geolocation.dto";
+import { UpdateGeolocationDto } from "./update.geolocation.dto";
 
 
 export class UpdateAddressDto {
