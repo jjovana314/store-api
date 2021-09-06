@@ -13,6 +13,7 @@ import { UsersDto } from './models/dto/users.dto';
 
 const bcrypt = require('bcrypt');
 const salt = 12;
+const idLength = 24;
 
 @Injectable()
 export class UsersService {
@@ -21,27 +22,12 @@ export class UsersService {
   ) { }
 
   async createUser(usersData: UsersDto): Promise<Users> {
-    this.usersModel.createIndexes(
-      {unique: true}
-    )
     let hashPassword = await bcrypt.hash(usersData.password, salt);
     usersData = {
       ...usersData,
       password: hashPassword
     };
-    
-    let userUsername = await this.usersModel.findOne(
-      { username: usersData.username }
-    );
-    let userEmail = await this.usersModel.findOne(
-      { email: usersData.email }
-    );
-    if (userUsername || userEmail) {
-      throw new HttpException(
-        `User with username ${usersData.username} already exist.`,
-        HttpStatus.BAD_REQUEST
-      );
-    }
+    await this.userExist(usersData);
     const newUser = new this.usersModel(usersData)
     return await newUser.save();
 
@@ -52,6 +38,7 @@ export class UsersService {
   }
 
   async getUser(id: string): Promise<Users> {
+    this.validateIdLength(id);
     const user = await this.usersModel.findById(id);
     if (!user) {
       throw new NotFoundException(
@@ -59,6 +46,37 @@ export class UsersService {
       );
     }
     return await user;
+  }
+
+  async userExist(usersData: UsersDto) {
+    const userUsername = await this.usersModel.findOne(
+      { username: usersData.username }
+    );
+    const userEmail = await this.usersModel.findOne(
+      { email: usersData.email }
+    );
+    if (userUsername) {
+      throw new HttpException(
+        `User with username ${usersData.username} already exists.`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+    if (userEmail) {
+      throw new HttpException(
+        `User with email ${usersData.email} already exists.`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+  
+  }
+
+  validateIdLength(id: string) {
+    if (id.length != idLength) {
+      throw new HttpException(
+        `id: ${id} is not valid`,
+        HttpStatus.BAD_REQUEST
+      )
+    }
   }
 }
 
