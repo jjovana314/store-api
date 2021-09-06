@@ -21,26 +21,44 @@ export class UsersService {
   ) { }
 
   async createUser(usersData: UsersDto): Promise<Users> {
-    let hashPassword = bcrypt.hash(usersData.password, salt);
+    this.usersModel.createIndexes(
+      {unique: true}
+    )
+    let hashPassword = await bcrypt.hash(usersData.password, salt);
     usersData = {
       ...usersData,
       password: hashPassword
     };
-    let userUsername = this.usersModel.findOne(
+    
+    let userUsername = await this.usersModel.findOne(
       { username: usersData.username }
     );
-    let userEmail = this.usersModel.findOne(
+    let userEmail = await this.usersModel.findOne(
       { email: usersData.email }
     );
     if (userUsername || userEmail) {
       throw new HttpException(
         `User with username ${usersData.username} already exist.`,
         HttpStatus.BAD_REQUEST
-      )
+      );
     }
     const newUser = new this.usersModel(usersData)
-    return await newUser.save()
+    return await newUser.save();
 
+  }
+
+  async getAllUsers() {
+    return this.usersModel.find();
+  }
+
+  async getUser(id: string): Promise<Users> {
+    const user = await this.usersModel.findById(id);
+    if (!user) {
+      throw new NotFoundException(
+        `User with id: ${id} not found`
+      );
+    }
+    return await user;
   }
 }
 

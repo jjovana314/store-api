@@ -16,5 +16,15 @@ export class UsersController {
     return await this.usersService.createUser(usersData);
   }
 
+  @Get()
+  async getAllUsers(): Promise<Users[]> {
+    return await this.usersService.getAllUsers();
+  }
+
+  @Get(':_id')
+  async getUser(@Param('_id') id: string): Promise<Users> {
+    return await this.usersService.getUser(id);
+  }
+
 }
 
