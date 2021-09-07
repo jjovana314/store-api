@@ -16,7 +16,7 @@ export class LoginService {
   ) {}
 
   async login(loginData: LoginDto): Promise<any> {
-    let passwordHashed = bcrypt.hash(
+    let passwordHashed = await bcrypt.hash(
       loginData.password, 
       salt
     );
@@ -28,6 +28,9 @@ export class LoginService {
       ...loginData,
       token: this.jwtService.sign(loginData)
     }
+    // store login users data in database
+    const user = new this.loginModel(userData);
+    await user.save();
     return await {
       token: userData.token
     }
