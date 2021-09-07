@@ -8,5 +8,6 @@ export const UsersSchema = new mongoose.Schema({
   password: String,
   name: NameSchema,
   address: AddressSchema,
-  phone: String
+  phone: String,
+  dateOfRegistration: String
 });

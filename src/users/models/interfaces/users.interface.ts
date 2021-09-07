@@ -9,5 +9,6 @@ export class Users {
   password: String;
   name: Name;
   address: Address;
-  phone: String
+  phone: String;
+  dateOfRegistration: String;
 }

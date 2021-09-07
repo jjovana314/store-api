@@ -5,6 +5,7 @@ import { ValidateNested, IsEmail } from "class-validator";
 
 
 export class UsersDto {
+
   @IsEmail()
   email: string;
 
@@ -20,4 +21,6 @@ export class UsersDto {
   address: AddressDto;
 
   phone: string;
+
+  dateOfRegistration: string;
 }
