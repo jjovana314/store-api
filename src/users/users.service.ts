@@ -82,8 +82,7 @@ export class UsersService {
   validateIdLength(id: string) {
     if (id.length !== idLength) {
       throw new HttpException(
-        `id: ${id} is not valid`,
-        HttpStatus.UNAUTHORIZED
+        `id: ${id} is not valid`, HttpStatus.UNAUTHORIZED
       );
     }
   }
@@ -109,13 +108,11 @@ export class UsersService {
       )
     }
     if (sort === 'asc') {
-      promises = await this.usersModel
-        .find()
+      promises = await this.usersModel.find()
         .sort({dateOfRegistration: 1})
     }
     if (sort === 'desc') {
-      promises = await this.usersModel
-        .find()
+      promises = await this.usersModel.find()
         .sort({dateOfRegistration: -1})
     }
     return await promises;

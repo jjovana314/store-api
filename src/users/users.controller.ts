@@ -47,15 +47,15 @@ export class UsersController {
     return await this.usersService.sortResults(typeOfSort);
   }
 
-  @Put('_id')
+  @Put(':_id')
   async updateUser(
-    @Body() updateData: UpdateUsersDto,
-    @Param('_id') id: string
+    @Param('_id') id: string,
+    @Body() updateData: UpdateUsersDto
   ): Promise<Users> {
     return await this.usersService.updateUser(updateData, id);
   }
 
-  @Delete('_id')
+  @Delete(':_id')
   async deleteUser(@Param('_id') id: string) {
     await this.usersService.deleteUser(id);
   }
