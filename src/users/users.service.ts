@@ -122,12 +122,40 @@ export class UsersService {
     return await promises;
   }
 
+  // todo: figure out why password update doesn't work
   async updateUser(updateData: UpdateUsersDto, id: string) {
+    
+    if (!this._usersModel.findById(id)) {
+      throw new NotFoundException(
+        `User with id ${id} not found.`
+      );
+    }
+    var passwordHashed;
+    if (updateData.password) {
+      const passHashed = await bcrypt
+        .hash(updateData.password, salt);
+      updateData = {
+        ...updateData,
+        password: passHashed
+      }
+      await this.validatePassword(id, updateData.password);
+    }
     return await this._usersModel
       .findByIdAndUpdate(id, updateData);
   }
 
   async deleteUser(id: string) {
     await this._usersModel.findByIdAndRemove(id);
+  }
+
+  async validatePassword(id: string, newPassword: string) {
+    const user = await this._usersModel.findById(id);
+    const userPassword = await user.password;
+    if (newPassword == userPassword) {
+      throw new HttpException(
+        `Old password cannot be new password`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
   }
 }
