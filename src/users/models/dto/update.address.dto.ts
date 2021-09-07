@@ -1,17 +1,5 @@
-import { Type } from "class-transformer";
-import { ValidateNested } from "class-validator";
-import { UpdateGeolocationDto } from "./update.geolocation.dto";
+import { AddressDto } from "./address.dto";
+import { PartialType } from "@nestjs/mapped-types";
 
 
-export class UpdateAddressDto {
-  city?: string;
-  street?: string;
-  number?: number;
-  zipcode?: string;
-
-  @ValidateNested()
-  @Type(() => UpdateGeolocationDto)
-  geolocation?: UpdateGeolocationDto;
-  
-  phone?: string;
-}
+export class UpdateAddressDto extends PartialType(AddressDto) { }

@@ -2,22 +2,8 @@ import { UpdateAddressDto } from "./update.address.dto";
 import { UpdateNameDto } from "./update.name.dto";
 import { Type } from "class-transformer";
 import { ValidateNested, IsEmail } from "class-validator";
+import { UsersDto } from "./users.dto";
+import { PartialType } from "@nestjs/mapped-types";
 
 
-export class UpdateUsersDto {
-  @IsEmail()
-  email?: string;
-
-  username?: string;
-  password?: string;
-
-  @ValidateNested()
-  @Type(() => UpdateNameDto)
-  name?: UpdateNameDto;
-
-  @ValidateNested()
-  @Type(() => UpdateAddressDto)
-  address?: UpdateAddressDto;
-
-  phone?: string;
-}
+export class UpdateUsersDto extends PartialType(UsersDto) {}
