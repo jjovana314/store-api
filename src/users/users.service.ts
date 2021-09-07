@@ -9,6 +9,7 @@ import { Users } from './models/interfaces/users.interface';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UsersDto } from './models/dto/users.dto';
+import { UpdateUsersDto } from './models/dto/update.users.dto';
 
 
 const bcrypt = require('bcrypt');
@@ -22,19 +23,27 @@ export class UsersService {
   ) { }
 
   async createUser(usersData: UsersDto): Promise<Users> {
-    let hashPassword = await bcrypt.hash(usersData.password, salt);
+    let hashPassword = await bcrypt.hash(
+      usersData.password, salt
+    );
     usersData = {
       ...usersData,
+      dateOfRegistration: this.generateDate(),
       password: hashPassword
     };
     await this.userExist(usersData);
     const newUser = new this.usersModel(usersData)
     return await newUser.save();
+  }
 
+  generateDate(): string {
+    return new Date().toLocaleString(
+      'hu-HU', { timeZone: 'CET' }
+    );
   }
 
   async getAllUsers() {
-    return this.usersModel.find();
+    return this.usersModel.find().exec();
   }
 
   async getUser(id: string): Promise<Users> {
@@ -58,23 +67,23 @@ export class UsersService {
     if (userUsername) {
       throw new HttpException(
         `User with username ${usersData.username} already exists.`,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.UNAUTHORIZED
       );
     }
     if (userEmail) {
       throw new HttpException(
         `User with email ${usersData.email} already exists.`,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.UNAUTHORIZED
       );
     }
   
   }
 
   validateIdLength(id: string) {
-    if (id.length != idLength) {
+    if (id.length !== idLength) {
       throw new HttpException(
         `id: ${id} is not valid`,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.UNAUTHORIZED
       );
     }
   }
@@ -91,4 +100,33 @@ export class UsersService {
     return await this.usersModel.find().limit(limitNumber);
   }
 
+  async sortResults(sort: string): Promise<Users[]> {
+    var promises = [];
+    if (sort !== 'desc' && sort !== 'asc') {
+      throw new HttpException(
+        `Sort method must be asc or desc`,
+        HttpStatus.BAD_REQUEST
+      )
+    }
+    if (sort === 'asc') {
+      promises = await this.usersModel
+        .find()
+        .sort({dateOfRegistration: 1})
+    }
+    if (sort === 'desc') {
+      promises = await this.usersModel
+        .find()
+        .sort({dateOfRegistration: -1})
+    }
+    return await promises;
+  }
+
+  async updateUser(updateData: UpdateUsersDto, id: string) {
+    return await this.usersModel
+      .findByIdAndUpdate(id, updateData);
+  }
+
+  async deleteUser(id: string) {
+    await this.usersModel.findByIdAndRemove(id);
+  }
 }

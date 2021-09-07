@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Get, Param, Query } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Query,
+  Delete,
+  Put
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Users } from './models/interfaces/users.interface';
 import { UsersDto } from './models/dto/users.dto';
@@ -29,6 +38,26 @@ export class UsersController {
   @Get(':_id')
   async getUser(@Param('_id') id: string): Promise<Users> {
     return await this.usersService.getUser(id);
+  }
+
+  @Get('sort/:typeOfSort')
+  async sortResults(
+    @Param('typeOfSort') typeOfSort: string
+  ): Promise<Users[]> {
+    return await this.usersService.sortResults(typeOfSort);
+  }
+
+  @Put('_id')
+  async updateUser(
+    @Body() updateData: UpdateUsersDto,
+    @Param('_id') id: string
+  ): Promise<Users> {
+    return await this.usersService.updateUser(updateData, id);
+  }
+
+  @Delete('_id')
+  async deleteUser(@Param('_id') id: string) {
+    await this.usersService.deleteUser(id);
   }
 }
 
