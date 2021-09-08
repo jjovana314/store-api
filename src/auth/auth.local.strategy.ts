@@ -11,31 +11,31 @@ const saltRounds = 12;
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  private readonly logger = new Logger(LocalStrategy.name);
-  constructor(
-    private readonly usersService: UsersService
-  ) {
-    super();
-  }
+    private readonly logger = new Logger(LocalStrategy.name);
+    constructor(
+        private readonly usersService: UsersService
+    ) {
+        super();
+    }
 
-  public async validate(
-    username: string, password: string
-  ): Promise<any> {
-    const user = await this.usersService.usersModel.findOne(
-      { username: username }
-    );
-    if (!user) {
-      throw new UnauthorizedException(
-        `User ${username} not found`
-      )
+    public async validate(
+        username: string, password: string
+    ): Promise<any> {
+        const user = await this.usersService.usersModel.findOne(
+            { username: username }
+        );
+        if (!user) {
+            throw new UnauthorizedException(
+                `User ${username} not found`
+            )
+        }
+        let passswordsEqual = await bcrypt.compare(
+            password, user.password
+        );
+        if (!passswordsEqual) {
+            throw new UnauthorizedException(
+                `Password for ${username} is not valid`
+            );
+        }
     }
-    let passswordsEqual = await bcrypt.compare(
-      password, user.password
-    );
-    if (!passswordsEqual) {
-      throw new UnauthorizedException(
-        `Password for ${username} is not valid`
-      );
-    }
-  }
 }
