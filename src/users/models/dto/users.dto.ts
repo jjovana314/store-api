@@ -6,21 +6,21 @@ import { ValidateNested, IsEmail } from "class-validator";
 
 export class UsersDto {
 
-  @IsEmail()
-  email: string;
+    @IsEmail()
+    email: string;
 
-  username: string;
-  password: string;
+    username: string;
+    password: string;
 
-  @ValidateNested()
-  @Type(() => NameDto)
-  name: NameDto;
+    @ValidateNested()
+    @Type(() => NameDto)
+    name: NameDto;
 
-  @ValidateNested()
-  @Type(() => AddressDto)
-  address: AddressDto;
+    @ValidateNested()
+    @Type(() => AddressDto)
+    address: AddressDto;
 
-  phone: string;
+    phone: string;
 
-  dateOfRegistration: string;
+    dateOfRegistration: string;
 }

@@ -1,4 +1,4 @@
 export class Name {
-  firstname: String;
-  lastname: String;
+    firstname: String;
+    lastname: String;
 }

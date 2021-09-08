@@ -1,4 +1,4 @@
 export class NameDto {
-  firstname: string;
-  lastname: string;
+    firstname: string;
+    lastname: string;
 }

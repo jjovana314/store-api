@@ -4,14 +4,14 @@ import { GeolocationDto } from "./geolocation.dto";
 
 
 export class AddressDto {
-  city: string;
-  street: string;
-  number: number;
-  zipcode: string;
+    city: string;
+    street: string;
+    number: number;
+    zipcode: string;
 
-  @ValidateNested()
-  @Type(() => GeolocationDto)
-  geolocation: GeolocationDto;
+    @ValidateNested()
+    @Type(() => GeolocationDto)
+    geolocation: GeolocationDto;
 
-  phone: string;
+    phone: string;
 }

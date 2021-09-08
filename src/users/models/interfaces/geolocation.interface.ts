@@ -1,4 +1,4 @@
 export class Geolocation {
-  lat?: String;
-  long?: String;
+    lat?: String;
+    long?: String;
 }
