@@ -10,22 +10,22 @@ import { AuthModule } from './auth/auth.module';
 import config from './config/key';
 
 @Module({
-  imports: [
-    CartModule,
-    LoginModule,
-    ProductsModule,
-    UsersModule,
-    AuthModule,
-    MongooseModule.forRoot(
-      config.mongoURI,
-      {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true
-      }
-    )
-  ],
-  controllers: [AppController],
-  providers: [AppService]
+    imports: [
+        CartModule,
+        LoginModule,
+        ProductsModule,
+        UsersModule,
+        AuthModule,
+        MongooseModule.forRoot(
+            config.mongoURI,
+            {
+                useNewUrlParser: true,
+                useCreateIndex: true,
+                useUnifiedTopology: true
+            }
+        )
+    ],
+    controllers: [AppController],
+    providers: [AppService]
 })
-export class AppModule {}
+export class AppModule { }
