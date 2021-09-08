@@ -64,10 +64,10 @@ export class UsersService {
     async usernameOrEmailExists(usersData: UsersDto) {
         const userUsername = await this.usersModel.findOne(
             { username: usersData.username }
-        );
+        ).exec();
         const userEmail = await this.usersModel.findOne(
             { email: usersData.email }
-        );
+        ).exec();
         if (userUsername) {
             throw new HttpException(
                 `User with username ${usersData.username} already exists.`,
@@ -122,25 +122,8 @@ export class UsersService {
         return await promises;
     }
 
-    // todo: figure out why password update doesn't work
     async updateUser(updateData: UpdateUsersDto, id: string) {
-        // ako je korisnik prosledio password za update
-        // treba da se obezbedi metoda koja radi validaciju passworda
-        // i azurira password ako je sve kako treba
-
-        this.userExist(id);
-        var passwordHashed;
-        if (updateData.password) {
-            let passHashed = await bcrypt.hash(
-                updateData.password, salt
-            );
-            updateData = {
-                ...updateData,
-                password: passHashed
-            }
-            // make sure that old and new password are not the same
-            await this.validatePassword(id, updateData.password);
-        }
+        await this.userExist(id);
         return await this.usersModel.findByIdAndUpdate(
             id, updateData
         );
@@ -150,10 +133,20 @@ export class UsersService {
         await this.usersModel.findByIdAndRemove(id);
     }
 
+    async updatePassword(id: string, passwordUpdate: any) {
+        const passwordUpdateHashed = await bcrypt.hash(
+            passwordUpdate, salt
+        );
+        await this.validatePassword(id, passwordUpdateHashed);
+        await this.usersModel.findByIdAndUpdate(
+            id,
+            { $set: {password: passwordUpdateHashed } }
+        );
+    }
+
     async validatePassword(id: string, newPasswordHashed: string) {
-        const user = await this.usersModel.findById(id);
-        const userPassword = await user.password;
-        if (newPasswordHashed == userPassword) {
+        const user = await this.usersModel.findById(id).exec();
+        if (newPasswordHashed == user.password) {
             throw new HttpException(
                 `Old password cannot be new password`,
                 HttpStatus.BAD_REQUEST
@@ -161,8 +154,9 @@ export class UsersService {
         }
     }
 
-    userExist(id: string) {
-        if (!this.usersModel.findById(id)) {
+    async userExist(id: string) {
+        const user = await this.usersModel.findById(id).exec();
+        if (!user) {
             throw new NotFoundException(
                 `User with id: ${id} does not exist`
             )

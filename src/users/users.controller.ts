@@ -12,6 +12,7 @@ import { UsersService } from './users.service';
 import { Users } from './models/interfaces/users.interface';
 import { UsersDto } from './models/dto/users.dto';
 import { UpdateUsersDto } from './models/dto/update.users.dto';
+import { UpdatePasswordDto } from './models/dto/update.password.dto';
 
 
 @Controller('users')
@@ -55,6 +56,16 @@ export class UsersController {
         @Body() updateData: UpdateUsersDto
     ): Promise<Users> {
         return await this.usersService.updateUser(updateData, id);
+    }
+
+    @Put('update_password/:_id')
+    async updatePassword(
+        @Param('_id') id: string,
+        @Body() passwordUpdate: UpdatePasswordDto
+    ) {
+        await this.usersService.updatePassword(
+            id, passwordUpdate.newPassword
+        );
     }
 
     @Delete(':_id')
