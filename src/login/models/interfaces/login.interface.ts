@@ -1,5 +1,5 @@
 export class Login {
-  username: String;
-  password: String;
-  token: String;
+    username: String;
+    password: String;
+    token: String;
 }

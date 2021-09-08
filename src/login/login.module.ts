@@ -7,19 +7,19 @@ import { LoginSchema } from './models/schemas/login.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: 'Login', schema: LoginSchema }
-    ]),
-    AuthModule,
-    JwtModule.register({
-      secret: 'Secret underwater party advencha',
-      signOptions: {
-        expiresIn: '60s'
-      }
-    })
-  ],
-  controllers: [LoginController],
-  providers: [LoginService],
+    imports: [
+        MongooseModule.forFeature([
+            { name: 'Login', schema: LoginSchema }
+        ]),
+        AuthModule,
+        JwtModule.register({
+            secret: 'Secret underwater party advencha',
+            signOptions: {
+                expiresIn: '60s'
+            }
+        })
+    ],
+    controllers: [LoginController],
+    providers: [LoginService],
 })
 export class LoginModule { }
