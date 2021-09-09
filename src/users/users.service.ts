@@ -48,12 +48,6 @@ export class UsersService {
         return await result;
     }
 
-    // generateDate(): string {
-    //     return new Date().toLocaleString(
-    //         'hu-HU', { timeZone: 'CET' }
-    //     );
-    // }
-
     async getAllUsers() {
         return this.usersModel.find().exec();
     }
