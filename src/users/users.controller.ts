@@ -27,7 +27,7 @@ export class UsersController {
     }
 
     @Get()
-    async getUsersLimit(@Query() limitObject) {
+    async getUsersLimit(@Query() limitObject): Promise<Users[]> {
         return await this.usersService.getUsersLimit(
             limitObject.limit
         );
