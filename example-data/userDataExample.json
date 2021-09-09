@@ -1,20 +1,20 @@
 {
-  "email": "john@email.com",
-  "username": "johnd",
-  "password": "m38rmF$",
-  "name": {
-    "firstname": "John",
-    "lastName": "Doe"
-  },
-  "address": {
-    "city": "belgrade",
-    "street": "zmaj jovina",
-    "number": 5,
-    "zipcode": "11080",
-    "geolocation": {
-      "lat": "-11.2456",
-      "long": "92.1145"
-    }
-  },
-  "phone": "064-211-22-56"
+    "email": "john@email.com",
+    "username": "johnd",
+    "password": "m38rmF$",
+    "name": {
+        "firstname": "John",
+        "lastName": "Doe"
+    },
+    "address": {
+        "city": "belgrade",
+        "street": "zmaj jovina",
+        "number": 5,
+        "zipcode": "11080",
+        "geolocation": {
+            "lat": "-11.2456",
+            "long": "92.1145"
+        }
+    },
+    "phone": "064-211-22-56"
 }
