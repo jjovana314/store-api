@@ -10,6 +10,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UsersDto } from './models/dto/users.dto';
 import { UpdateUsersDto } from './models/dto/update.users.dto';
+import { LogsService } from 'src/logs/logs.service';
 
 
 const bcrypt = require('bcrypt');
@@ -19,6 +20,7 @@ const idLength = 24;
 @Injectable()
 export class UsersService {
     constructor(
+        private readonly logsService: LogsService,
         @InjectModel('Users') private readonly _usersModel: Model<Users>
     ) { }
 
@@ -32,19 +34,25 @@ export class UsersService {
         );
         usersData = {
             ...usersData,
-            dateOfRegistration: this.generateDate(),
+            dateOfRegistration: this.logsService.generateDate(),
             password: hashPassword
         };
         await this.usernameOrEmailExists(usersData);
         const newUser = new this.usersModel(usersData)
-        return await newUser.save();
+        const result = await newUser.save();
+        this.logsService.addLogs(
+            result.username.toString(),
+            'registered',
+            result._id
+        );
+        return await result;
     }
 
-    generateDate(): string {
-        return new Date().toLocaleString(
-            'hu-HU', { timeZone: 'CET' }
-        );
-    }
+    // generateDate(): string {
+    //     return new Date().toLocaleString(
+    //         'hu-HU', { timeZone: 'CET' }
+    //     );
+    // }
 
     async getAllUsers() {
         return this.usersModel.find().exec();
