@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query
+} from '@nestjs/common';
 import { ProductsDto } from './models/dto/products.dto';
 import { Products } from './models/interfaces/products.interface';
 import { ProductsService } from './products.service';
@@ -20,6 +27,15 @@ export class ProductsController {
     @Post('list')
     async addProductsList(@Body() productsList: ProductsDto[]) {
         await this.productsService.addProductsList(productsList);
+    }
+
+    @Get()
+    async getProductsLimit(
+        @Query() limitObject
+    ): Promise<Products[]> {
+        return await this.productsService.getProductsLimit(
+            limitObject.limit
+        );
     }
 
     @Get()

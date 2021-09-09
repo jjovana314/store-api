@@ -19,7 +19,6 @@ export class ProductsService {
 
     async createProduct(productData: ProductsDto): Promise<Products> {
         await this.errorIfProductExist(productData);
-        const date = 
         productData = {
             ...productData,
             dateAdded: this.logsService.generateDate()
@@ -64,5 +63,20 @@ export class ProductsService {
         productsList.forEach(async (product) => {
             await this.createProduct(product);
         });
+    }
+
+    async getProductsLimit(limitString: string): Promise<Products[]> {
+        var limitNumber = Number(limitString);
+        const allUsersLength = await (await this.productsModel
+            .find())
+            .length;
+        if (allUsersLength < limitNumber || limitNumber <= 0) {
+            throw new HttpException(
+                `Limit error occurred`,
+                HttpStatus.BAD_REQUEST
+            );
+        }
+        return await this.productsModel.find().limit(limitNumber);
+
     }
 }
