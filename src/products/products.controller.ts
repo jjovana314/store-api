@@ -38,6 +38,13 @@ export class ProductsController {
         );
     }
 
+    @Get('sort/:typeOfSort')
+    async sortProducts(
+        @Param('typeOfSort') typeOfSort
+    ): Promise<Products[]> {
+        return await this.productsService.sortProducts(typeOfSort);
+    }
+
     @Get()
     async getAllProducts(): Promise<Products[]> {
         return await this.productsService

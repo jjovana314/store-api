@@ -79,4 +79,27 @@ export class ProductsService {
         return await this.productsModel.find().limit(limitNumber);
 
     }
+
+    async sortProducts(sort: string): Promise<Products[]> {
+        if (sort !== 'desc' && sort !== 'asc') {
+            throw new HttpException(
+                `Sort method must be asc or desc`,
+                HttpStatus.BAD_REQUEST
+            );
+        }
+        return await this.findAndSort(sort);
+    }
+
+    async findAndSort(sort: string) {
+        var promises = [];
+        if (sort === 'asc') {
+            promises = await this.productsModel.find()
+                .sort({ dateAdded: 1 });
+        }
+        if (sort === 'desc') {
+            promises = await this.productsModel.find()
+                .sort({ dateAdded: -1 });
+        }
+        return await promises;
+    }
 }
