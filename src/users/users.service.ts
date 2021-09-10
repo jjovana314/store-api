@@ -37,7 +37,9 @@ export class UsersService {
             dateOfRegistration: this.logsService.generateDate(),
             password: hashPassword
         };
-        await this.usernameOrEmailExists(usersData);
+        // await this.usernameOrEmailExists(usersData);
+        await this.errorIfUsernameExists(usersData.username);
+        await this.errorIfEmailExists(usersData.email);
         const newUser = new this.usersModel(usersData)
         const result = await newUser.save();
         this.logsService.addLogs(
@@ -63,26 +65,28 @@ export class UsersService {
         return await user;
     }
 
-    async usernameOrEmailExists(usersData: UsersDto) {
+    async errorIfUsernameExists(username: string) {
         const userUsername = await this.usersModel.findOne(
-            { username: usersData.username }
-        ).exec();
-        const userEmail = await this.usersModel.findOne(
-            { email: usersData.email }
+            { username: username }
         ).exec();
         if (userUsername) {
             throw new HttpException(
-                `User with username ${usersData.username} already exists.`,
+                `User with username ${username} already exists.`,
                 HttpStatus.UNAUTHORIZED
             );
         }
+    }
+
+    async errorIfEmailExists(email: string) {
+        const userEmail = await this.usersModel.findOne(
+            { email: email }
+        ).exec();
         if (userEmail) {
             throw new HttpException(
-                `User with email ${usersData.email} already exists.`,
+                `User with email ${email} already exists.`,
                 HttpStatus.UNAUTHORIZED
             );
         }
-
     }
 
     validateIdLength(id: string) {
@@ -132,10 +136,19 @@ export class UsersService {
         updateData: UpdateUsersDto, id: string
     ): Promise<Users> {
         await this.userExist(id);
+        // await this.usernameOrEmailExists(updateData);
+        await this.errorIfUsernameExists(updateData.username);
+        await this.errorIfEmailExists(updateData.email);
         await this.usersModel.findByIdAndUpdate(
             id, updateData
         );
-        return await this.getUser(id);
+        const result = await this.getUser(id);
+        this.logsService.addLogs(
+            result.username.toString(),
+            'updated',
+            id
+        );
+        return await result;
     }
 
     async deleteUser(id: string) {
@@ -150,6 +163,12 @@ export class UsersService {
         await this.usersModel.findByIdAndUpdate(
             id,
             { $set: {password: passwordUpdateHashed } }
+        );
+        const userUpdated = await this.getUser(id);
+        this.logsService.addLogs(
+            userUpdated.username.toString(),
+            'password updated',
+            id
         );
     }
 
