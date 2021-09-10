@@ -45,7 +45,8 @@ export class ProductsController {
     async sortProducts(
         @Param('typeOfSort') typeOfSort
     ): Promise<Products[]> {
-        return await this.productsService.sortProducts(typeOfSort);
+        return await this.productsService
+            .sortProducts(typeOfSort);
     }
 
     @Get()
@@ -63,9 +64,8 @@ export class ProductsController {
     async getSpecificCategory(
         @Param('category') category: string
     ): Promise<Products[]> {
-        return await this.productsService.getSpecificCategory(
-            category
-        );
+        return await this.productsService
+            .getSpecificCategory(category);
     }
 
     @Get(':_id')

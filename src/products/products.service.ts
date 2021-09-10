@@ -11,6 +11,8 @@ import { ProductsDto } from './models/dto/products.dto';
 import { UpdateProductsDto } from './models/dto/update.products.dto';
 import { LogsService } from 'src/logs/logs.service';
 
+const idLength = 24;
+
 @Injectable()
 export class ProductsService {
     constructor(
@@ -22,7 +24,9 @@ export class ProductsService {
         return this._productsModel;
     }
 
-    async createProduct(productData: ProductsDto): Promise<Products> {
+    async createProduct(
+        productData: ProductsDto
+    ): Promise<Products> {
         await this.errorIfProductExist(productData);
         productData = {
             ...productData,
@@ -51,7 +55,10 @@ export class ProductsService {
     }
 
     async getProduct(id: string): Promise<Products> {
-        const product = await this.productsModel.findById(id).exec();
+        this.validateIdLength(id);
+        const product = await this.productsModel
+            .findById(id)
+            .exec();
         if (!product) {
             throw new NotFoundException(
                 `Product with id: ${id} does not exist.`
@@ -70,7 +77,9 @@ export class ProductsService {
         });
     }
 
-    async getProductsLimit(limitString: string): Promise<Products[]> {
+    async getProductsLimit(
+        limitString: string
+    ): Promise<Products[]> {
         var limitNumber = Number(limitString);
         const allUsersLength = await (await this.productsModel
             .find())
@@ -81,7 +90,9 @@ export class ProductsService {
                 HttpStatus.BAD_REQUEST
             );
         }
-        return await this.productsModel.find().limit(limitNumber);
+        return await this.productsModel
+            .find()
+            .limit(limitNumber);
 
     }
 
@@ -111,17 +122,24 @@ export class ProductsService {
     async updateProduct(
         updateData: UpdateProductsDto, id: string
     ): Promise<Products> {
+        this.validateIdLength(id);
         await this.getProduct(id);
         await this.productsModel.findByIdAndUpdate(
             id, updateData
         );
         const result = await this.getProduct(id);
-        this.logsService.addLogs(result.title, 'updated', id);
+        this.logsService.addLogs(
+            result.title,
+            'updated',
+            id
+        );
         return await result;
     }
 
     async deleteProduct(id: string) {
-        const result = await this.productsModel.findByIdAndRemove(id);
+        this.validateIdLength(id);
+        const result = await this.productsModel
+            .findByIdAndRemove(id);
         this.logsService.addLogs(result.title, 'removed', id);
     }
 
@@ -151,5 +169,14 @@ export class ProductsService {
         throw new NotFoundException(
             `Category: ${category} not found`
         );
+    }
+
+    validateIdLength(id: string) {
+        if (id.length !== idLength) {
+            throw new HttpException(
+                `id: ${id} is not valid`,
+                HttpStatus.UNAUTHORIZED
+            );
+        }
     }
 }
