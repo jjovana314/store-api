@@ -131,4 +131,22 @@ export class ProductsService {
         // eliminate duplicates
         return [... new Set(categories)];
     }
+
+    async getSpecificCategory(
+        category: string
+    ): Promise<Products[]> {
+        const categories = await this.getAllCategories();
+        // make sure that category exist
+        for (let currCategory of categories) {
+            if (currCategory == category) {
+                return await this.productsModel.find(
+                    { category: category }
+                );
+            }
+        }
+        // if category does not exist
+        throw new NotFoundException(
+            `Category: ${category} not found`
+        );
+    }
 }

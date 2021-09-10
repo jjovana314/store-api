@@ -59,6 +59,15 @@ export class ProductsController {
         return await this.productsService.getAllCategories();
     }
 
+    @Get('categories/:category')
+    async getSpecificCategory(
+        @Param('category') category: string
+    ): Promise<Products[]> {
+        return await this.productsService.getSpecificCategory(
+            category
+        );
+    }
+
     @Get(':_id')
     async getProduct(@Param('_id') id: string): Promise<Products> {
         return await this.productsService.getProduct(id);
