@@ -128,11 +128,14 @@ export class UsersService {
         return await promises;
     }
 
-    async updateUser(updateData: UpdateUsersDto, id: string) {
+    async updateUser(
+        updateData: UpdateUsersDto, id: string
+    ): Promise<Users> {
         await this.userExist(id);
-        return await this.usersModel.findByIdAndUpdate(
+        await this.usersModel.findByIdAndUpdate(
             id, updateData
         );
+        return await this.getUser(id);
     }
 
     async deleteUser(id: string) {
