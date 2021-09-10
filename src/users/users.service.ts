@@ -37,7 +37,6 @@ export class UsersService {
             dateOfRegistration: this.logsService.generateDate(),
             password: hashPassword
         };
-        // await this.usernameOrEmailExists(usersData);
         await this.errorIfUsernameExists(usersData.username);
         await this.errorIfEmailExists(usersData.email);
         const newUser = new this.usersModel(usersData)
@@ -136,7 +135,6 @@ export class UsersService {
         updateData: UpdateUsersDto, id: string
     ): Promise<Users> {
         await this.userExist(id);
-        // await this.usernameOrEmailExists(updateData);
         await this.errorIfUsernameExists(updateData.username);
         await this.errorIfEmailExists(updateData.email);
         await this.usersModel.findByIdAndUpdate(
