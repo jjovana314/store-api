@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+    HttpException,
+    HttpStatus,
+    Injectable,
+    NotFoundException
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Products } from './models/interfaces/products.interface';
@@ -101,5 +106,19 @@ export class ProductsService {
                 .sort({ dateAdded: -1 });
         }
         return await promises;
+    }
+
+    async updateProduct(
+        updateData: UpdateProductsDto, id: string
+    ): Promise<Products> {
+        await this.getProduct(id);
+        await this.productsModel.findByIdAndUpdate(
+            id, updateData
+        );
+        return await this.getProduct(id);
+    }
+
+    async deleteProduct(id: string) {
+        await this.productsModel.findByIdAndRemove(id);
     }
 }
