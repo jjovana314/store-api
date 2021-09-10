@@ -115,11 +115,14 @@ export class ProductsService {
         await this.productsModel.findByIdAndUpdate(
             id, updateData
         );
-        return await this.getProduct(id);
+        const result = await this.getProduct(id);
+        this.logsService.addLogs(result.title, 'updated', id);
+        return await result;
     }
 
     async deleteProduct(id: string) {
-        await this.productsModel.findByIdAndRemove(id);
+        const result = await this.productsModel.findByIdAndRemove(id);
+        this.logsService.addLogs(result.title, 'removed', id);
     }
 
     async getAllCategories(): Promise<string[]> {
