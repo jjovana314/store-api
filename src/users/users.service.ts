@@ -106,13 +106,17 @@ export class UsersService {
     }
 
     async sortResults(sort: string): Promise<Users[]> {
-        var promises = [];
         if (sort !== 'desc' && sort !== 'asc') {
             throw new HttpException(
                 `Sort method must be asc or desc`,
                 HttpStatus.BAD_REQUEST
             )
         }
+        return await this.findAndSort(sort);
+    }
+
+    async findAndSort(sort: string) {
+        var promises = [];
         if (sort === 'asc') {
             promises = await this.usersModel.find()
                 .sort({ dateOfRegistration: 1 })
