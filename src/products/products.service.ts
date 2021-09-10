@@ -121,4 +121,14 @@ export class ProductsService {
     async deleteProduct(id: string) {
         await this.productsModel.findByIdAndRemove(id);
     }
+
+    async getAllCategories(): Promise<string[]> {
+        const products = await this.productsModel.find().exec();
+        let categories = [];
+        products.forEach((product) => {
+            categories.push(product.category);
+        });
+        // eliminate duplicates
+        return [... new Set(categories)];
+    }
 }

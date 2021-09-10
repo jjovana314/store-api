@@ -54,6 +54,11 @@ export class ProductsController {
             .getAllProducts();
     }
 
+    @Get('categories')
+    async getAllCategories(): Promise<string[]> {
+        return await this.productsService.getAllCategories();
+    }
+
     @Get(':_id')
     async getProduct(@Param('_id') id: string): Promise<Products> {
         return await this.productsService.getProduct(id);
