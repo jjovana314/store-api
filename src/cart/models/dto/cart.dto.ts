@@ -4,7 +4,7 @@ import { ProductsCartDto } from "./products.cart.dto";
 
 export class CartDto {
     userId: string;
-    date: string;
+    date: Date;
 
     @ValidateNested({ each: true })
     @Type(() => ProductsCartDto)
