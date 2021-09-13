@@ -68,4 +68,15 @@ export class CartService {
         }
         return await promises;
     }
+
+    async getCartsLimit(limit: string) {
+        const allCarts = await this.cartModel.find().exec();
+        if (allCarts.length < Number(limit) || Number(limit) < 0) {
+            throw new HttpException(
+                `Limit error occurred`,
+                HttpStatus.BAD_REQUEST
+            );
+        }
+        return allCarts.slice(null, Number(limit));
+    }
 }

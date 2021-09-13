@@ -28,6 +28,11 @@ export class CartController {
         );
     }
 
+    @Get('getCartsLimit')
+    async getCartsLimit(@Query() limitObj): Promise<Cart[]> {
+        return await this.cartService.getCartsLimit(limitObj.limit);
+    }
+
     @Get('sort/:sortType')
     async sortCarts(
         @Param('sortType') sortType: string
