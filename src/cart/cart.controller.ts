@@ -40,6 +40,13 @@ export class CartController {
         return await this.cartService.sortCarts(sortType);
     }
 
+    @Get('user/:userId')
+    async getUserCarts(
+        @Param('userId') userId: string
+    ): Promise<Cart[]> {
+        return await this.cartService.getUserCarts(userId);
+    }
+
     @Get(':id')
     async getCart(@Param('id') id: string): Promise<Cart> {
         return await this.cartService.getCart(id);

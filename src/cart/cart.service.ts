@@ -79,4 +79,8 @@ export class CartService {
         }
         return allCarts.slice(null, Number(limit));
     }
+
+    async getUserCarts(userId: string): Promise<Cart[]> {
+        return await this.cartModel.find({ userId: userId });
+    }
 }
