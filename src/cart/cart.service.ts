@@ -13,7 +13,11 @@ export class CartService {
     ) {}
 
     async addNewCart(cart: CartDto): Promise<Cart> {
-        const newCart = new this.cartModel(cart);
+        const cartDto = {
+            ...cart,
+            date: new Date(cart.date)
+        };
+        const newCart = new this.cartModel(cartDto);
         const result = await newCart.save();
         this.logsService.addLogs(
             'cart',
@@ -29,5 +33,16 @@ export class CartService {
 
     async getCart(id: string): Promise<Cart> {
         return await this.cartModel.findById(id);
+    }
+
+    async filterCartsByDate(
+        startDate: string, endDate: string
+    ): Promise<Cart[]> {
+        return await this.cartModel.find({
+            date: {
+                $gte: new Date(startDate),
+                $lte: new Date(endDate)
+            }
+        });
     }
 }

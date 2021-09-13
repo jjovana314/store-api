@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CartDto } from './models/dto/cart.dto';
 import { Cart } from './models/interfaces/cart.interface';
@@ -17,6 +17,15 @@ export class CartController {
     @Get()
     async getCarts(): Promise<Cart[]> {
         return await this.cartService.getCarts();
+    }
+
+    @Get('filterCartsByDate')
+    async filterCartsByDate(
+        @Query() startDateObj, @Query() endDateObj
+    ): Promise<Cart[]> {
+        return await this.cartService.filterCartsDate(
+            startDateObj.startdate, endDateObj.enddate
+        );
     }
 
     @Get(':id')
