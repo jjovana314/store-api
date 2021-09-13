@@ -1,18 +1,14 @@
 [
     {
-        "userId": "6139b1823478c210a1de0226",
-        "date": "2020-10-10",
+        "userId": "6138cffa96669e59123f390e",
+        "date": "2020-03-14",
         "products": [
             {
-                "productId": 2,
-                "quantity": 4
+                "productId": "6138d13553f8ac5ad9d8381c",
+                "quantity": 1
             },
             {
-                "productId": 1,
-                "quantity": 10
-            },
-            {
-                "productId": 5,
+                "productId": "6139b66096b5a3175fda4cda",
                 "quantity": 2
             }
         ]
@@ -22,11 +18,11 @@
         "date": "2019-10-10",
         "products": [
             {
-                "productId": 1,
+                "productId": "6138d13553f8ac5ad9d8381c",
                 "quantity": 5
             },
             {
-                "productId": 5,
+                "productId": "6139b66096b5a3175fda4cda",
                 "quantity": 1
             }
         ]
