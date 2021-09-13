@@ -6,11 +6,13 @@ import { ProductsModule } from 'src/products/products.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CartSchema } from './models/schemas/cart.schema';
 import { ProductsCartSchema } from './models/schemas/products.cart.schema';
+import { LogsModule } from 'src/logs/logs.module';
 
 @Module({
     imports: [
         UsersModule,
         ProductsModule,
+        LogsModule,
         MongooseModule.forFeature([
             { name: 'Cart', schema: CartSchema },
             { name: 'ProductsCart', schema: ProductsCartSchema }
