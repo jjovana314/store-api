@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LogsService } from 'src/logs/logs.service';
@@ -44,5 +44,28 @@ export class CartService {
                 $lte: new Date(endDate)
             }
         });
+    }
+
+    validateSortType(sortType: string) {
+        if (sortType !== 'asc' && sortType !== 'desc') {
+            throw new HttpException(
+                `Sort type must be asc or desc`,
+                HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    async sortCarts(sortType: string): Promise<Cart[]> {
+        this.validateSortType(sortType);
+        let promises = [];
+        if (sortType === 'asc') {
+            promises = await this.cartModel.find()
+                .sort({ date: 1 });
+        }
+        else {
+            promises = await this.cartModel.find()
+                .sort({ date: -1 });
+        }
+        return await promises;
     }
 }

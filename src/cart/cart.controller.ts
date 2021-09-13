@@ -23,9 +23,16 @@ export class CartController {
     async filterCartsByDate(
         @Query() startDateObj, @Query() endDateObj
     ): Promise<Cart[]> {
-        return await this.cartService.filterCartsDate(
+        return await this.cartService.filterCartsByDate(
             startDateObj.startdate, endDateObj.enddate
         );
+    }
+
+    @Get('sort/:sortType')
+    async sortCarts(
+        @Param('sortType') sortType: string
+    ): Promise<Cart[]> {
+        return await this.cartService.sortCarts(sortType);
     }
 
     @Get(':id')
