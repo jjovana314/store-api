@@ -15,7 +15,7 @@ import { LogsService } from 'src/logs/logs.service';
 
 const bcrypt = require('bcrypt');
 const salt = 12;
-const idLength = 24;
+const idLength = 24;    // length of mongoose PrimaryKey
 
 @Injectable()
 export class UsersService {
@@ -25,6 +25,8 @@ export class UsersService {
     ) { }
 
     get usersModel() {
+        // use this getter to access users 
+        // database outside the users service
         return this._usersModel;
     }
 
@@ -32,6 +34,8 @@ export class UsersService {
         let hashPassword = await bcrypt.hash(
             usersData.password, salt
         );
+        // generateDate should return current 
+        // date and time for 'hu-HU' timezone
         usersData = {
             ...usersData,
             dateOfRegistration: this.logsService.generateDate(),
@@ -39,8 +43,10 @@ export class UsersService {
         };
         await this.errorIfUsernameExists(usersData.username);
         await this.errorIfEmailExists(usersData.email);
+
         const newUser = new this.usersModel(usersData)
         const result = await newUser.save();
+
         this.logsService.addLogs(
             result.username.toString(),
             'registered',
@@ -50,7 +56,7 @@ export class UsersService {
     }
 
     async getAllUsers() {
-        return this.usersModel.find().exec();
+        return await this.usersModel.find().exec();
     }
 
     async getUser(id: string): Promise<Users> {
@@ -105,7 +111,8 @@ export class UsersService {
                 HttpStatus.BAD_REQUEST
             );
         }
-        return await this.usersModel.find().limit(limitNumber);
+        // slicing allUsers array from the begining to limitNumber
+        return await allUsers.slice(null, limitNumber);
     }
 
     async sortResults(sort: string): Promise<Users[]> {
@@ -140,27 +147,35 @@ export class UsersService {
         await this.usersModel.findByIdAndUpdate(
             id, updateData
         );
-        const result = await this.getUser(id);
+        const updatedUser = await this.getUser(id);
         this.logsService.addLogs(
-            result.username.toString(),
+            updatedUser.username.toString(),
             'updated',
             id
         );
-        return await result;
+        return await updatedUser;
     }
 
     async deleteUser(id: string) {
-        await this.usersModel.findByIdAndRemove(id);
+        const removedUser = await this.usersModel
+            .findByIdAndRemove(id);
+        this.logsService.addLogs(
+            removedUser.username,
+            'removed',
+            removedUser._id
+        );
+        return await removedUser;
     }
 
-    async updatePassword(id: string, passwordUpdate: any) {
+    async updatePassword(id: string, passwordUpdate) {
+        await this.userExist(id);
         const passwordUpdateHashed = await bcrypt.hash(
             passwordUpdate, salt
         );
         await this.validatePassword(id, passwordUpdateHashed);
         await this.usersModel.findByIdAndUpdate(
             id,
-            { $set: {password: passwordUpdateHashed } }
+            { $set: { password: passwordUpdateHashed } }
         );
         const userUpdated = await this.getUser(id);
         this.logsService.addLogs(
