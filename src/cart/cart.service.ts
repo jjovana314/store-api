@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LogsService } from 'src/logs/logs.service';
 import { CartDto } from './models/dto/cart.dto';
+import { UpdateCartDto } from './models/dto/update.cart.dto';
 import { Cart } from './models/interfaces/cart.interface';
 
 @Injectable()
@@ -13,10 +14,12 @@ export class CartService {
     ) {}
 
     async addNewCart(cart: CartDto): Promise<Cart> {
+        // converting date from YYYY-MM-DD to Date object 
         const cartDto = {
             ...cart,
             date: new Date(cart.date)
         };
+        // creating cart and saving into database
         const newCart = new this.cartModel(cartDto);
         const result = await newCart.save();
         this.logsService.addLogs(
@@ -38,6 +41,8 @@ export class CartService {
     async filterCartsByDate(
         startDate: string, endDate: string
     ): Promise<Cart[]> {
+        // finding date greather then or equal to startDate
+        // and less then or equal to endDate
         return await this.cartModel.find({
             date: {
                 $gte: new Date(startDate),
@@ -63,6 +68,7 @@ export class CartService {
                 .sort({ date: 1 });
         }
         else {
+            // sorting descending
             promises = await this.cartModel.find()
                 .sort({ date: -1 });
         }
@@ -77,10 +83,30 @@ export class CartService {
                 HttpStatus.BAD_REQUEST
             );
         }
+        // slicing allCarts array from the begining to the limit
         return allCarts.slice(null, Number(limit));
     }
 
     async getUserCarts(userId: string): Promise<Cart[]> {
         return await this.cartModel.find({ userId: userId });
+    }
+
+    async updateCart(
+        id: string, updateData: UpdateCartDto
+    ): Promise<Cart> {
+        await this.cartModel.findByIdAndUpdate(
+            id, updateData
+        );
+        this.logsService.addLogs(
+            'cart',
+            'updated',
+            id
+        );
+        // returning updated cart
+        return await this.getCart(id);
+    }
+
+    async deleteCart(id: string) {
+        await this.cartModel.findByIdAndRemove(id);
     }
 }
