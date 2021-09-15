@@ -10,8 +10,12 @@ import { Cart } from './models/interfaces/cart.interface';
 export class CartService {
     constructor(
         private readonly logsService: LogsService,
-        @InjectModel('Cart') private readonly cartModel: Model<Cart>
+        @InjectModel('Cart') private readonly _cartModel: Model<Cart>
     ) {}
+
+    get cartModel() {
+        return this._cartModel;
+    }
 
     async addNewCart(cart: CartDto): Promise<Cart> {
         // converting date from YYYY-MM-DD to Date object 
