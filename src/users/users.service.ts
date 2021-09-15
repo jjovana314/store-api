@@ -160,7 +160,7 @@ export class UsersService {
         const removedUser = await this.usersModel
             .findByIdAndRemove(id);
         this.logsService.addLogs(
-            removedUser.username,
+            removedUser.username.toString(),
             'removed',
             removedUser._id
         );
