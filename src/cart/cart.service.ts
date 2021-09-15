@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+    HttpException,
+    HttpStatus,
+    Injectable,
+    NotFoundException
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LogsService } from 'src/logs/logs.service';
@@ -39,6 +44,7 @@ export class CartService {
     }
 
     async getCart(id: string): Promise<Cart> {
+        await this.errorIfCartNotExist(id);
         return await this.cartModel.findById(id);
     }
 
@@ -95,9 +101,19 @@ export class CartService {
         return await this.cartModel.find({ userId: userId });
     }
 
+    async errorIfCartNotExist(id: string) {
+        const cart = await this.cartModel.findById(id).exec();
+        if (!cart) {
+            throw new NotFoundException(
+                `Cart with id ${id} does not exist`
+            );
+        }
+    }
+
     async updateCart(
         id: string, updateData: UpdateCartDto
     ): Promise<Cart> {
+        await this.errorIfCartNotExist(id);
         await this.cartModel.findByIdAndUpdate(
             id, updateData
         );
@@ -111,6 +127,7 @@ export class CartService {
     }
 
     async deleteCart(id: string) {
+        await this.errorIfCartNotExist(id);
         await this.cartModel.findByIdAndRemove(id);
     }
 }
