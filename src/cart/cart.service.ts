@@ -7,6 +7,8 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LogsService } from 'src/logs/logs.service';
+import { ProductsService } from 'src/products/products.service';
+import { UsersService } from 'src/users/users.service';
 import { CartDto } from './models/dto/cart.dto';
 import { UpdateCartDto } from './models/dto/update.cart.dto';
 import { Cart } from './models/interfaces/cart.interface';
@@ -15,6 +17,8 @@ import { Cart } from './models/interfaces/cart.interface';
 export class CartService {
     constructor(
         private readonly logsService: LogsService,
+        private readonly productsService: ProductsService,
+        private readonly usersService: UsersService,
         @InjectModel('Cart') private readonly _cartModel: Model<Cart>
     ) {}
 
@@ -23,7 +27,14 @@ export class CartService {
     }
 
     async addNewCart(cart: CartDto): Promise<Cart> {
-        // converting date from YYYY-MM-DD to Date object 
+        // check if productId exists
+        for (let product of cart.products) {
+            await this.productsService.getProduct(
+                product.productId
+            );
+        }
+        await this.usersService.getUser(cart.userId);
+        // converting date from YYYY-MM-DD to Date object
         const cartDto = {
             ...cart,
             date: new Date(cart.date)
