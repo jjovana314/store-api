@@ -27,15 +27,15 @@ export class UsersController {
     }
 
     @Get()
+    async getAllUsers(): Promise<Users[]> {
+        return await this.usersService.getAllUsers();
+    }
+
+    @Get('limit-users')
     async getUsersLimit(@Query() limitObject): Promise<Users[]> {
         return await this.usersService.getUsersLimit(
             limitObject.limit
         );
-    }
-
-    @Get()
-    async getAllUsers(): Promise<Users[]> {
-        return await this.usersService.getAllUsers();
     }
 
     @Get(':_id')
