@@ -1,0 +1,623 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Miscellaneous</li>
+  <li>Variables</li>
+</ol>
+
+<section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#AddressSchema" title="src/users/models/schemas/address.schema.ts" ><b>AddressSchema</b>&nbsp;&nbsp;&nbsp;(src/.../address.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#bcrypt" title="src/auth/auth.local.strategy.ts" ><b>bcrypt</b>&nbsp;&nbsp;&nbsp;(src/.../auth.local.strategy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#bcrypt" title="src/login/login.service.ts" ><b>bcrypt</b>&nbsp;&nbsp;&nbsp;(src/.../login.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#bcrypt" title="src/users/users.service.ts" ><b>bcrypt</b>&nbsp;&nbsp;&nbsp;(src/.../users.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CartSchema" title="src/cart/models/schemas/cart.schema.ts" ><b>CartSchema</b>&nbsp;&nbsp;&nbsp;(src/.../cart.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GeolocationSchema" title="src/users/models/schemas/geolocation.schema.ts" ><b>GeolocationSchema</b>&nbsp;&nbsp;&nbsp;(src/.../geolocation.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#idLength" title="src/products/products.service.ts" ><b>idLength</b>&nbsp;&nbsp;&nbsp;(src/.../products.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#idLength" title="src/users/users.service.ts" ><b>idLength</b>&nbsp;&nbsp;&nbsp;(src/.../users.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LoginSchema" title="src/login/models/schemas/login.schema.ts" ><b>LoginSchema</b>&nbsp;&nbsp;&nbsp;(src/.../login.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LogsSchema" title="src/logs/models/schemas/logs.schema.ts" ><b>LogsSchema</b>&nbsp;&nbsp;&nbsp;(src/.../logs.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#NameSchema" title="src/users/models/schemas/name.schema.ts" ><b>NameSchema</b>&nbsp;&nbsp;&nbsp;(src/.../name.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ProductsCartSchema" title="src/cart/models/schemas/products.cart.schema.ts" ><b>ProductsCartSchema</b>&nbsp;&nbsp;&nbsp;(src/.../products.cart.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ProductsSchema" title="src/products/models/schemas/products.schema.ts" ><b>ProductsSchema</b>&nbsp;&nbsp;&nbsp;(src/.../products.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#salt" title="src/login/login.service.ts" ><b>salt</b>&nbsp;&nbsp;&nbsp;(src/.../login.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#salt" title="src/users/users.service.ts" ><b>salt</b>&nbsp;&nbsp;&nbsp;(src/.../users.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#saltRounds" title="src/auth/auth.local.strategy.ts" ><b>saltRounds</b>&nbsp;&nbsp;&nbsp;(src/.../auth.local.strategy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UsersSchema" title="src/users/models/schemas/users.schema.ts" ><b>UsersSchema</b>&nbsp;&nbsp;&nbsp;(src/.../users.schema.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/users/models/schemas/address.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AddressSchema"></a>
+                    <span class="name">
+                        <span ><b>AddressSchema</b></span>
+                        <a href="#AddressSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    city: String,
+    street: String,
+    number: Number,
+    zipcode: String,
+    geolocation: GeolocationSchema
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/auth/auth.local.strategy.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bcrypt"></a>
+                    <span class="name">
+                        <span ><b>bcrypt</b></span>
+                        <a href="#bcrypt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>require(&#x27;bcrypt&#x27;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saltRounds"></a>
+                    <span class="name">
+                        <span ><b>saltRounds</b></span>
+                        <a href="#saltRounds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>12</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/login/login.service.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bcrypt"></a>
+                    <span class="name">
+                        <span ><b>bcrypt</b></span>
+                        <a href="#bcrypt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>require(&#x27;bcrypt&#x27;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="salt"></a>
+                    <span class="name">
+                        <span ><b>salt</b></span>
+                        <a href="#salt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>12</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/users/users.service.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bcrypt"></a>
+                    <span class="name">
+                        <span ><b>bcrypt</b></span>
+                        <a href="#bcrypt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>require(&#x27;bcrypt&#x27;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="idLength"></a>
+                    <span class="name">
+                        <span ><b>idLength</b></span>
+                        <a href="#idLength"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>24</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="salt"></a>
+                    <span class="name">
+                        <span ><b>salt</b></span>
+                        <a href="#salt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>12</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/cart/models/schemas/cart.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CartSchema"></a>
+                    <span class="name">
+                        <span ><b>CartSchema</b></span>
+                        <a href="#CartSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    userId: String,
+    date: Date,
+    products: [ProductsCartSchema]
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/users/models/schemas/geolocation.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GeolocationSchema"></a>
+                    <span class="name">
+                        <span ><b>GeolocationSchema</b></span>
+                        <a href="#GeolocationSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    lat: String,
+    long: String
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/products/products.service.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="idLength"></a>
+                    <span class="name">
+                        <span ><b>idLength</b></span>
+                        <a href="#idLength"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>24</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/login/models/schemas/login.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LoginSchema"></a>
+                    <span class="name">
+                        <span ><b>LoginSchema</b></span>
+                        <a href="#LoginSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    username: String,
+    password: String,
+    token: String
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/logs/models/schemas/logs.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LogsSchema"></a>
+                    <span class="name">
+                        <span ><b>LogsSchema</b></span>
+                        <a href="#LogsSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    id: String,
+    name: String,
+    action: String,
+    at: String
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/users/models/schemas/name.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="NameSchema"></a>
+                    <span class="name">
+                        <span ><b>NameSchema</b></span>
+                        <a href="#NameSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    firstname: String,
+    lastname: String
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/cart/models/schemas/products.cart.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ProductsCartSchema"></a>
+                    <span class="name">
+                        <span ><b>ProductsCartSchema</b></span>
+                        <a href="#ProductsCartSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    productId: String,
+    quantity: Number
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/products/models/schemas/products.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ProductsSchema"></a>
+                    <span class="name">
+                        <span ><b>ProductsSchema</b></span>
+                        <a href="#ProductsSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    title: String,
+    price: Number,
+    description: String,
+    category: String,
+    image: String,
+    dateAdded: String
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/users/models/schemas/users.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UsersSchema"></a>
+                    <span class="name">
+                        <span ><b>UsersSchema</b></span>
+                        <a href="#UsersSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new mongoose.Schema({
+    email: String,
+    username: String,
+    password: String,
+    name: NameSchema,
+    address: AddressSchema,
+    phone: String,
+    dateOfRegistration: String
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
