@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CartModule } from './cart/cart.module';
@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { LogsModule } from './logs/logs.module';
+import { CacheConfigModule } from 'cache/cache.module';
 import config from './config/key';
 
 @Module({
@@ -18,6 +19,7 @@ import config from './config/key';
         UsersModule,
         AuthModule,
         LogsModule,
+        CacheConfigModule,
         MongooseModule.forRoot(
             config.mongoURI,
             {
